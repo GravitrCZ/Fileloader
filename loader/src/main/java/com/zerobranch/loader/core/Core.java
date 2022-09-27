@@ -3,6 +3,7 @@ package com.zerobranch.loader.core;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.zerobranch.loader.core.Loader.Configurator;
 import com.zerobranch.loader.service.LoaderService;
@@ -49,7 +50,15 @@ final class Core {
     private void load() {
         configure();
         validate();
-        context.startService(getPreparedIntent());
+        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(getPreparedIntent());
+        } else {
+            context.startService(getPreparedIntent());
+        }
+        
+        // old, background service error on android >= O
+        //context.startService(getPreparedIntent());
     }
 
     private void configure() {
