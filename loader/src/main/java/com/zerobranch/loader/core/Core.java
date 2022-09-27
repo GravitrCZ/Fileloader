@@ -51,11 +51,12 @@ final class Core {
         configure();
         validate();
         
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.startForegroundService(getPreparedIntent());
         } else {
             context.startService(getPreparedIntent());
-        }
+        }*/
+        ContextCompat.startForegroundService(getPreparedIntent());
         
         // old, background service error on android >= O
         //context.startService(getPreparedIntent());
